@@ -8,13 +8,6 @@ import { useBrandsData, useTagsData } from "../hooks/DataFetcher";
 
 const Sidebar = ({tags,setTags}) => {
     const  {brandsData, loading} = useBrandsData();
-    // const brandsData = ["Samsung", "Apple", "Google", "Microsoft",]
-    // 
-    // if (!loading) {
-    //     // When loading is false, you can safely map the data
-    //     brandNames = brandsData.map((brand) => brand.name);
-    //     console.log(brandNames);
-    //   }
     const [inputValue, setInputValue] = useState("");
     const [suggestions, setSuggestions] = useState([]);
       
@@ -62,24 +55,29 @@ const Sidebar = ({tags,setTags}) => {
       <label className="label">
         <span className="label-text text-lg">Brands</span>
       </label>
-      <input
-        type="text"
-        placeholder="Ex: Samsung"
-        className="input input-bordered w-full"
-        value={inputValue}
-        onChange={handleInputChange}
-      />
-      <div >
-      {suggestions.length > 0 && (
-        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-          {suggestions.map((brand, index) => (
-            <li key={index} onClick={() => handleSuggestionClick(brand)}>
-              {brand}
-            </li>
-          ))}
-        </ul>
-      )}
-      </div>
+      <div className="relative">
+  <input
+    type="text"
+    placeholder="Ex: Samsung"
+    className="input input-bordered w-full"
+    value={inputValue}
+    onChange={handleInputChange}
+  />
+  {suggestions.length > 0  && inputValue.length > 0 && (
+    <ul className="absolute left-0 mt-2 py-2 bg-white border border-gray-300 shadow-lg rounded-md w-52">
+      {suggestions.map((brand, index) => (
+        <li
+          key={index}
+          className="cursor-pointer px-4 py-2 hover:bg-blue-100"
+          onClick={() => handleSuggestionClick(brand)}
+        >
+          {brand}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
     </div>
 
         <div className="form-control w-full px-10">
