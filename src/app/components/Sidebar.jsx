@@ -19,7 +19,7 @@ const Sidebar = ({tags,setTags}) => {
         const value = e.target.value;
         setInputValue(value);
     
-        const brandNames = brandsData.map((brand) => brand.name);
+        const brandNames = brandsData?.map((brand) => brand.name);
         const matchingBrands = brandNames.filter((brand) =>
           brand.toLowerCase().includes(value.toLowerCase())
         );
