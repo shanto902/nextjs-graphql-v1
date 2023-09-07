@@ -8,10 +8,12 @@ import { useBrandsData, useCategoriesData} from "../hooks/DataFetcher";
 
 const Sidebar = ({tags,setTags}) => {
     const  {brandsData} = useBrandsData();
-    const  {categoriesData} = useCategoriesData();
+
     const [inputValue, setInputValue] = useState("");
     const [suggestions, setSuggestions] = useState([]);
-    const categoriesName = categoriesData.map((category) => category.name);
+    const  {categoriesData, loading} = useCategoriesData();
+    const categoriesName = !loading ? categoriesData?.map((category) => category.name) : null;
+
     
       const handleInputChange = (e) => {
         const value = e.target.value;
@@ -44,7 +46,7 @@ const Sidebar = ({tags,setTags}) => {
             </option>
 
             {/* Will Generated from API  */}
-            { categoriesName.map((categoriesName, index)=> <option key={index}>{categoriesName}</option>)}
+            { categoriesName?.map((categoriesName, index)=> <option key={index}>{categoriesName}</option>)}
           </select>
         </div>
 
