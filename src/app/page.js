@@ -14,6 +14,7 @@ import { useBrandsData, useTagsData } from "./hooks/DataFetcher";
 
 export default function Home() {
   const [tags, setTags] = useState([]);
+  const [selectedAttributes, setSelectedAttributes] = useState([]);
   const [isToggleOn, setIsToggleOn] = useState(true);
   const {tags:fetchData} = useTagsData();
  const {brands} = useBrandsData();
@@ -93,13 +94,13 @@ export default function Home() {
 
           {!isToggleOn && (
             <div className="rounded-lg px-5">
-           {attributes.map((attribute)=> <Attributes key={attribute.id} attribute={attribute}  onChange={handleCheckboxChange}/>)}
+           {attributes.map((attribute)=> <Attributes key={attribute.id} attribute={attribute}  onChange={handleCheckboxChange} selectedAttributes = {selectedAttributes} setSelectedAttributes={setSelectedAttributes}/>)}
           
             </div>
 
            
           )}
-  <ProductTable/>
+  <ProductTable isToggleOn={isToggleOn}/>
 
       </div>
         </div>

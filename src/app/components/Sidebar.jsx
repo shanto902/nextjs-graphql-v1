@@ -2,21 +2,21 @@
 import React, { useState } from "react";
 
 import {TagsFetcher} from "./TagsFetcher";
-import { useBrandsData, useTagsData } from "../hooks/DataFetcher";
+import { useBrandsData, useCategoriesData} from "../hooks/DataFetcher";
 
 
 
 const Sidebar = ({tags,setTags}) => {
-    const  {brandsData, loading} = useBrandsData();
+    const  {brandsData} = useBrandsData();
+    const  {categoriesData} = useCategoriesData();
     const [inputValue, setInputValue] = useState("");
     const [suggestions, setSuggestions] = useState([]);
-      
+    const categoriesName = categoriesData.map((category) => category.name);
     
       const handleInputChange = (e) => {
         const value = e.target.value;
         setInputValue(value);
     
-        if(loading) {}
         const brandNames = brandsData.map((brand) => brand.name);
         const matchingBrands = brandNames.filter((brand) =>
           brand.toLowerCase().includes(value.toLowerCase())
@@ -30,6 +30,7 @@ const Sidebar = ({tags,setTags}) => {
         setSuggestions([]);
       };
     
+      
     
     return (
         <div className="col-span-1">
@@ -43,11 +44,7 @@ const Sidebar = ({tags,setTags}) => {
             </option>
 
             {/* Will Generated from API  */}
-            <option>Star Wars</option>
-            <option>Harry Potter</option>
-            <option>Lord of the Rings</option>
-            <option>Planet of the Apes</option>
-            <option>Star Trek</option>
+            { categoriesName.map((categoriesName, index)=> <option key={index}>{categoriesName}</option>)}
           </select>
         </div>
 

@@ -3,7 +3,7 @@ import CheckBox from './CheckBox';
 import ProductTable from './ProductTable';
 
 
-const Attributes = ({attribute, isChecked, onChange}) => {
+const Attributes = ({attribute, isChecked, onChange, selectedAttributes, setSelectedAttributes}) => {
     const [isToggleOn, setIsToggleOn] = useState(true);
 
     const toggleSwitch = () => {
@@ -30,11 +30,12 @@ const Attributes = ({attribute, isChecked, onChange}) => {
         {attribute?.properties.map((property, index) => (
             <CheckBox
               key={index}
+              name={attribute.name}
+              selectedAttributes = {selectedAttributes} setSelectedAttributes={setSelectedAttributes}
               property={property}
               onChange={(isChecked) => onChange(attribute.name, property, isChecked)} // Pass the attribute name along with property and isChecked
             />
           ))}
-           
             </div>
           )}
          

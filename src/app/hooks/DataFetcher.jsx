@@ -11,6 +11,17 @@ const GET_TAGS = gql`
   }
 `;
 
+const GET_CATEGORIES = gql`
+  {
+    categories  {
+        id
+        name
+        serial
+        
+    }
+  }
+`;
+
 const GET_BRANDS = gql`
   {
     brands(query: {
@@ -60,3 +71,15 @@ export const useBrandsData = () => {
 
   return { brandsData , loading };
 };
+
+export const useCategoriesData = () => {
+    const { loading, error, data } = useQuery(GET_CATEGORIES, { client });
+  
+    if (loading) return { loading: true };
+    if (error) return { error: error.message };
+     
+    const categoriesData = data.categories;
+  
+    return { categoriesData , loading };
+  };
+  
