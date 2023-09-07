@@ -1,15 +1,22 @@
 "use client";
 
-import Sidebar from "./components/Sidebar";
+
 import { useState } from "react";
-import SingleImageUpload from "./components/SingleImageUpload";
-import MultipleImageUpload from "./components/MultipleImageUpload";
-import Attributes from "./components/Attributes";
-import ProductTable from "./components/ProductTable";
+import SingleImageUpload from "@/app/components/SingleImageUpload";
+import MultipleImageUpload from "@/app/components/MultipleImageUpload";
+import Attributes from "@/app/components/Attributes";
+import { BiSave } from 'react-icons/bi';
+import ProductTable from "@/app/components/ProductTable";
+import Sidebar from "@/app/components/Sidebar";
+import TagsFetcher from '@/app/components/TagsFetcher';
+import { useBrandsData, useTagsData } from "./hooks/DataFetcher";
+
+
 export default function Home() {
   const [tags, setTags] = useState([]);
   const [isToggleOn, setIsToggleOn] = useState(true);
-
+  const {tags:fetchData} = useTagsData();
+ const {brands} = useBrandsData();
   const [checkboxes, setCheckboxes] = useState([]);
 
   const handleCheckboxChange = (property, isChecked) => {
@@ -19,6 +26,8 @@ export default function Home() {
     });
 };
 
+// console.log(brands)
+// console.log(fetchData)
   const attributes = [
     {
       id: "1",
@@ -40,7 +49,7 @@ export default function Home() {
         <div className="col-span-2">
           <div className="flex flex-row justify-between w-full items-center p-5">
             <h2 className="text-2xl">Add new Product</h2>
-            <button className="btn btn-success">Save</button>
+            <button className="btn btn-outline"><BiSave/> Save</button>
           </div>
       <div className="overflow-y-auto max-h-[90vh] ">
       <div>
@@ -66,7 +75,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-10 flex flex-row w-full">
+          <div className="mt-10 flex lg:flex-row flex-col w-full gap-5 ">
          <MultipleImageUpload />
          <SingleImageUpload/>
           </div>
@@ -91,6 +100,7 @@ export default function Home() {
            
           )}
   <ProductTable/>
+
       </div>
         </div>
         <Sidebar tags={tags} setTags={setTags} />

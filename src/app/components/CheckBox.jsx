@@ -8,7 +8,7 @@ const CheckBox = ({ property, isChecked, onChange }) => {
     };
 
     return (
-        <div className="btn join-item">
+        <div className="px-5 border-2 border-black join-item">
             <label className="label cursor-pointer">
                 <span className="label-text pr-5">{property}</span>
                 <input
